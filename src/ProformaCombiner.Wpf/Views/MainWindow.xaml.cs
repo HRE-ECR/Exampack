@@ -33,6 +33,7 @@ public partial class MainWindow
             MessageBox.Show($"AT300 Excel not found:\n{_cfg.AT300ExcelPath}", "Missing file", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
+
         LoadExcel(_cfg.AT300ExcelPath);
     }
 
@@ -43,6 +44,7 @@ public partial class MainWindow
             MessageBox.Show($"AT200 Excel not found:\n{_cfg.AT200ExcelPath}", "Missing file", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
+
         LoadExcel(_cfg.AT200ExcelPath);
     }
 

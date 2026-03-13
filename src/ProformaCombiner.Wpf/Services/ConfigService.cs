@@ -10,13 +10,13 @@ public static class ConfigService
             .SetBasePath(AppContext.BaseDirectory)
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
 
-        var configRoot = builder.Build();
+        var root = builder.Build();
 
         return new AppConfig
         {
-            AT200ExcelPath = configRoot["AT200ExcelPath"] ?? string.Empty,
-            AT300ExcelPath = configRoot["AT300ExcelPath"] ?? string.Empty,
-            SheetName = configRoot["SheetName"] ?? string.Empty
+            AT200ExcelPath = root["AT200ExcelPath"] ?? string.Empty,
+            AT300ExcelPath = root["AT300ExcelPath"] ?? string.Empty,
+            SheetName = root["SheetName"] ?? string.Empty
         };
     }
 }

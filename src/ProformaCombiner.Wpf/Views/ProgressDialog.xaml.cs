@@ -22,7 +22,8 @@ public partial class ProgressDialog
     public void Log(string message)
     {
         _log.Add($"[{DateTime.Now:HH:mm:ss}] {message}");
-        LogList.ScrollIntoView(_log.Count > 0 ? _log[^1] : null);
+        if (_log.Count > 0)
+            LogList.ScrollIntoView(_log[^1]);
     }
 
     public void StepOne()

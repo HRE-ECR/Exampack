@@ -42,13 +42,13 @@ public static class ExcelService
             var path = SafeString(row[colPath]);
             var pageText = SafeString(row[colPage]);
 
-            var pagesTextNormalized = string.IsNullOrWhiteSpace(pageText) ? "1" : pageText;
+            var pagesText = string.IsNullOrWhiteSpace(pageText) ? "1" : pageText;
             var rec = new ProformaRecord
             {
                 Title = title,
                 PdfPath = path,
-                PagesText = pagesTextNormalized,
-                Pages = PageParser.ParsePages(pagesTextNormalized)
+                PagesText = pagesText,
+                Pages = PageParser.ParsePages(pagesText)
             };
 
             if (string.IsNullOrWhiteSpace(rec.Title) && string.IsNullOrWhiteSpace(rec.PdfPath))
