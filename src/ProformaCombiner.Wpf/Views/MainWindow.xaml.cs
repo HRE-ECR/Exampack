@@ -1,9 +1,8 @@
-using Microsoft.Win32;
 using ProformaCombiner.Wpf.Services;
 using ProformaCombiner.Wpf.ViewModels;
 using System.Diagnostics;
 using System.Windows;
-using Wpf.Ui;
+using Microsoft.Win32;
 
 namespace ProformaCombiner.Wpf.Views;
 
@@ -18,39 +17,32 @@ public partial class MainWindow
         DataContext = _vm;
         _cfg = ConfigService.Load();
 
-        // Initial status hints
-        var hints = new List<string>();
-        hints.Add(File.Exists(_cfg.AT300ExcelPath) ? "AT300 Excel found" : "AT300 Excel missing");
-        hints.Add(File.Exists(_cfg.AT200ExcelPath) ? "AT200 Excel found" : "AT200 Excel missing");
-        _vm.Status = "Status: " + string.Join(" | ", hints);
+        var hints = new List<string>
+        {
+            File.Exists(_cfg.AT300ExcelPath) ? "AT300 Excel found" : "AT300 Excel missing",
+            File.Exists(_cfg.AT200ExcelPath) ? "AT200 Excel found" : "AT200 Excel missing"
+        };
 
-        // Default theme mode label
-        _vm.ModeLabel = "AT300";
+        _vm.Status = "Status: " + string.Join(" | ", hints);
     }
 
     private void AT300_Click(object sender, RoutedEventArgs e)
     {
-        _vm.ModeLabel = "AT300";
         if (!File.Exists(_cfg.AT300ExcelPath))
         {
-            MessageBox.Show($"AT300 Excel not found:
-{_cfg.AT300ExcelPath}", "Missing file", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show($"AT300 Excel not found:\n{_cfg.AT300ExcelPath}", "Missing file", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
-
         LoadExcel(_cfg.AT300ExcelPath);
     }
 
     private void AT200_Click(object sender, RoutedEventArgs e)
     {
-        _vm.ModeLabel = "AT200";
         if (!File.Exists(_cfg.AT200ExcelPath))
         {
-            MessageBox.Show($"AT200 Excel not found:
-{_cfg.AT200ExcelPath}", "Missing file", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show($"AT200 Excel not found:\n{_cfg.AT200ExcelPath}", "Missing file", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
-
         LoadExcel(_cfg.AT200ExcelPath);
     }
 
@@ -64,8 +56,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Failed to read Excel:
-{ex.Message}", "Excel error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"Failed to read Excel:\n{ex.Message}", "Excel error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -107,19 +98,17 @@ public partial class MainWindow
         try
         {
             addedPages = await Task.Run(() =>
-            {
-                return PdfExportService.ExportCombinedPdf(
+                PdfExportService.ExportCombinedPdf(
                     selected,
                     sfd.FileName,
                     msg => dlg.Dispatcher.Invoke(() => dlg.Log(msg)),
-                    () => dlg.Dispatcher.Invoke(() => dlg.StepOne()));
-            });
+                    () => dlg.Dispatcher.Invoke(dlg.StepOne))
+            );
         }
         catch (Exception ex)
         {
             dlg.Log("FATAL: " + ex.Message);
-            MessageBox.Show($"Export failed:
-{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"Export failed:\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         finally
         {
@@ -134,13 +123,7 @@ public partial class MainWindow
 
         _vm.Status = $"Exported {addedPages} page(s) -> {sfd.FileName}";
 
-        try
-        {
-            Process.Start(new ProcessStartInfo { FileName = sfd.FileName, UseShellExecute = true });
-        }
-        catch
-        {
-            // ignore
-        }
+        try { Process.Start(new ProcessStartInfo { FileName = sfd.FileName, UseShellExecute = true }); }
+        catch { }
     }
 }

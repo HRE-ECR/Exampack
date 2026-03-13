@@ -1,4 +1,3 @@
-using System;
 using System.Text;
 using System.Windows;
 
@@ -8,7 +7,6 @@ public partial class App : Application
 {
     protected override void OnStartup(StartupEventArgs e)
     {
-        // Required for ExcelDataReader on .NET (code pages)
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         base.OnStartup(e);
     }

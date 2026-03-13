@@ -14,10 +14,7 @@ public class SelectableProforma : INotifyPropertyChanged
         set { _isSelected = value; OnPropertyChanged(); }
     }
 
-    public SelectableProforma(ProformaRecord record)
-    {
-        Record = record;
-    }
+    public SelectableProforma(ProformaRecord record) => Record = record;
 
     public event PropertyChangedEventHandler? PropertyChanged;
     private void OnPropertyChanged([CallerMemberName] string? name = null)

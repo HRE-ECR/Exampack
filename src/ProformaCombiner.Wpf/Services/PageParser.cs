@@ -7,20 +7,15 @@ public static class PageParser
     public static List<int> ParsePages(string? text)
     {
         var result = new List<int>();
-        if (string.IsNullOrWhiteSpace(text))
-        {
-            result.Add(1);
-            return result;
-        }
+        if (string.IsNullOrWhiteSpace(text)) { result.Add(1); return result; }
 
         var parts = text.Trim().Split(new[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
         foreach (var raw in parts)
         {
             var token = raw.Trim();
-
             int copies = 1;
-            int xPos = token.LastIndexOf('x');
-            if (xPos < 0) xPos = token.LastIndexOf('X');
+
+            int xPos = token.LastIndexOf('x'); if (xPos < 0) xPos = token.LastIndexOf('X');
             int starPos = token.LastIndexOf('*');
             int sepPos = Math.Max(xPos, starPos);
 
@@ -40,32 +35,19 @@ public static class PageParser
                 if (int.TryParse(token[..dash].Trim(), out var a) && int.TryParse(token[(dash + 1)..].Trim(), out var b))
                 {
                     if (a <= b)
-                    {
-                        for (int i = a; i <= b; i++)
-                            for (int c = 0; c < copies; c++)
-                                result.Add(i);
-                    }
+                        for (int i = a; i <= b; i++) for (int c = 0; c < copies; c++) result.Add(i);
                     else
-                    {
-                        for (int i = a; i >= b; i--)
-                            for (int c = 0; c < copies; c++)
-                                result.Add(i);
-                    }
+                        for (int i = a; i >= b; i--) for (int c = 0; c < copies; c++) result.Add(i);
                 }
             }
             else
             {
                 if (int.TryParse(token, out var n) && n > 0)
-                {
-                    for (int c = 0; c < copies; c++)
-                        result.Add(n);
-                }
+                    for (int c = 0; c < copies; c++) result.Add(n);
             }
         }
 
-        if (result.Count == 0)
-            result.Add(1);
-
+        if (result.Count == 0) result.Add(1);
         return result;
     }
 }

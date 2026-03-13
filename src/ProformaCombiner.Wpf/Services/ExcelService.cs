@@ -14,11 +14,7 @@ public static class ExcelService
         var ds = reader.AsDataSet(new ExcelDataSetConfiguration
         {
             ConfigureDataTable = _ => new ExcelDataTableConfiguration { UseHeaderRow = true },
-            FilterSheet = (tableReader, _) =>
-            {
-                if (string.IsNullOrWhiteSpace(sheetName)) return true;
-                return tableReader.Name.Equals(sheetName, StringComparison.OrdinalIgnoreCase);
-            }
+            FilterSheet = (tableReader, _) => string.IsNullOrWhiteSpace(sheetName) || tableReader.Name.Equals(sheetName, StringComparison.OrdinalIgnoreCase)
         });
 
         DataTable? table = null;
@@ -28,10 +24,7 @@ public static class ExcelService
                 if (t.TableName.Equals(sheetName, StringComparison.OrdinalIgnoreCase)) { table = t; break; }
             if (table == null && ds.Tables.Count > 0) table = ds.Tables[0];
         }
-        else
-        {
-            table = ds.Tables.Count > 0 ? ds.Tables[0] : null;
-        }
+        else table = ds.Tables.Count > 0 ? ds.Tables[0] : null;
 
         if (table == null || table.Columns.Count == 0)
             throw new Exception("No worksheet data found.");
@@ -39,7 +32,6 @@ public static class ExcelService
         int colTitle = TryGetColumn(table, "Title");
         int colPath = TryGetColumn(table, "Path");
         int colPage = TryGetColumn(table, "Page");
-
         if (colTitle < 0 || colPath < 0 || colPage < 0)
             throw new Exception("Excel must contain headers: Title, Path, Page");
 
@@ -51,14 +43,12 @@ public static class ExcelService
             var pageText = SafeString(row[colPage]);
 
             var pagesTextNormalized = string.IsNullOrWhiteSpace(pageText) ? "1" : pageText;
-            var parsed = PageParser.ParsePages(pagesTextNormalized);
-
             var rec = new ProformaRecord
             {
                 Title = title,
                 PdfPath = path,
                 PagesText = pagesTextNormalized,
-                Pages = parsed
+                Pages = PageParser.ParsePages(pagesTextNormalized)
             };
 
             if (string.IsNullOrWhiteSpace(rec.Title) && string.IsNullOrWhiteSpace(rec.PdfPath))

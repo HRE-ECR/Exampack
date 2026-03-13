@@ -18,7 +18,6 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Export in progress" FontSize="18" FontWeight="SemiBold" />
-
         <ProgressBar Grid.Row="1" Height="18" Margin="0,12,0,12" Minimum="0" Maximum="100" Value="0" x:Name="Bar" />
 
         <Border Grid.Row="2" CornerRadius="12" Background="#141414" BorderBrush="#2B2B2B" BorderThickness="1" Padding="10">

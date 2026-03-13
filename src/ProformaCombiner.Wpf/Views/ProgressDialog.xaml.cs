@@ -7,7 +7,6 @@ public partial class ProgressDialog
 {
     private readonly int _total;
     private int _current;
-
     private readonly ObservableCollection<string> _log = new();
 
     public ProgressDialog(int total)
@@ -23,7 +22,7 @@ public partial class ProgressDialog
     public void Log(string message)
     {
         _log.Add($"[{DateTime.Now:HH:mm:ss}] {message}");
-        LogList.ScrollIntoView(_log.LastOrDefault());
+        LogList.ScrollIntoView(_log.Count > 0 ? _log[^1] : null);
     }
 
     public void StepOne()
@@ -40,8 +39,5 @@ public partial class ProgressDialog
         Log("Export finished.");
     }
 
-    private void Close_Click(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
+    private void Close_Click(object sender, RoutedEventArgs e) => Close();
 }

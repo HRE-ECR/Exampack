@@ -22,23 +22,7 @@ The workbook must contain headers:
 - range with copies: `2-4x2`
 
 ## Configuration
-Edit `src/ProformaCombiner.Wpf/appsettings.json`:
-```json
-{
-  "AT200ExcelPath": "I:/ServiceDelivery/ECR/1. Proforma Viewer/Databases/AT200 Proforma list.xlsx",
-  "AT300ExcelPath": "I:/ServiceDelivery/ECR/1. Proforma Viewer/Databases/AT300 Performa List.xlsx",
-  "SheetName": ""
-}
-```
-
-## Build locally
-```bash
-cd src/ProformaCombiner.Wpf
-
-dotnet restore
-
-dotnet publish -c Release -r win-x64 --self-contained true   -p:PublishSingleFile=true   -p:IncludeNativeLibrariesForSelfExtract=true
-```
+Edit `src/ProformaCombiner.Wpf/appsettings.json`.
 
 ## GitHub Actions
 A workflow builds on every push to `main` and uploads the published output as an artifact.

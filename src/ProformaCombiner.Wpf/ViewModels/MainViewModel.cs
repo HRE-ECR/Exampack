@@ -16,13 +16,6 @@ public class MainViewModel : INotifyPropertyChanged
         set { _status = value; OnPropertyChanged(); }
     }
 
-    private string _modeLabel = "AT300";
-    public string ModeLabel
-    {
-        get => _modeLabel;
-        set { _modeLabel = value; OnPropertyChanged(); }
-    }
-
     public void SetItems(IEnumerable<ProformaRecord> records)
     {
         Items.Clear();
