@@ -2,7 +2,7 @@
 
 Modern WPF rewrite of the original WinForms Proforma Combiner.
 
-> Note: This build uses **pure WPF** (no external UI toolkit) to avoid XAML namespace mapping issues during CI builds.
+> This build uses **pure WPF** (no external UI toolkit) to avoid XAML namespace mapping issues during CI builds.
 
 ## What it does
 - Loads AT200 or AT300 Excel list (configured in `appsettings.json`).

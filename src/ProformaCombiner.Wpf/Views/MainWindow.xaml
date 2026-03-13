@@ -14,7 +14,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Top bar -->
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -52,7 +51,6 @@
             </Button>
         </Grid>
 
-        <!-- Tiles -->
         <Border Grid.Row="1" Margin="0,16,0,12" CornerRadius="14" Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Padding="10">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding Items}">
@@ -82,7 +80,6 @@
             </ScrollViewer>
         </Border>
 
-        <!-- Footer -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <TextBlock Text="Tip: Click tiles to select. Page supports ranges (2-6) and copies (4x3)." Foreground="#AFAFAF" />
         </StackPanel>
