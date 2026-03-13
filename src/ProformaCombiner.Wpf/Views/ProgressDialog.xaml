@@ -1,13 +1,9 @@
-<ui:FluentWindow x:Class="ProformaCombiner.Wpf.Views.ProgressDialog"
-                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                 xmlns:ui="clr-namespace:Wpf.Ui.Controls;assembly=Wpf.Ui"
-                 mc:Ignorable="d"
-                 Title="Exporting" Height="420" Width="720"
-                 WindowStartupLocation="CenterOwner"
-                 ResizeMode="NoResize">
+<Window x:Class="ProformaCombiner.Wpf.Views.ProgressDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Exporting" Height="420" Width="720"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
 
     <Grid Margin="18">
         <Grid.RowDefinitions>
@@ -18,10 +14,11 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Export in progress" FontSize="18" FontWeight="SemiBold" />
+
         <ProgressBar Grid.Row="1" Height="18" Margin="0,12,0,12" Minimum="0" Maximum="100" Value="0" x:Name="Bar" />
 
-        <Border Grid.Row="2" CornerRadius="12" Background="#141414" BorderBrush="#2B2B2B" BorderThickness="1" Padding="10">
-            <ListBox x:Name="LogList" Background="Transparent" BorderThickness="0" Foreground="#DDDDDD">
+        <Border Grid.Row="2" CornerRadius="12" Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Padding="10">
+            <ListBox x:Name="LogList" Background="Transparent" BorderThickness="0" Foreground="{StaticResource TextBrush}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding}" TextWrapping="Wrap" />
@@ -31,7 +28,7 @@
         </Border>
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
-            <ui:Button x:Name="BtnClose" Content="Close" Width="110" Height="36" IsEnabled="False" Click="Close_Click" />
+            <Button x:Name="BtnClose" Content="Close" Width="110" Style="{StaticResource SecondaryButton}" IsEnabled="False" Click="Close_Click" />
         </StackPanel>
     </Grid>
-</ui:FluentWindow>
+</Window>

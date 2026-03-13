@@ -2,11 +2,13 @@
 
 Modern WPF rewrite of the original WinForms Proforma Combiner.
 
+> Note: This build uses **pure WPF** (no external UI toolkit) to avoid XAML namespace mapping issues during CI builds.
+
 ## What it does
 - Loads AT200 or AT300 Excel list (configured in `appsettings.json`).
 - Displays each row as a selectable tile.
-- Exports selected items into a single combined PDF by importing requested pages from the source PDFs.
-- Export shows a progress dialog with a live log of activity.
+- Exports selected items into a single combined PDF by importing requested pages from source PDFs.
+- Export shows a progress dialog with a live log.
 
 ## Excel format
 Required headers: `Title`, `Path`, `Page`.

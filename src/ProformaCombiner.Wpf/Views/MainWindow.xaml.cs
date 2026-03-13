@@ -6,7 +6,7 @@ using Microsoft.Win32;
 
 namespace ProformaCombiner.Wpf.Views;
 
-public partial class MainWindow
+public partial class MainWindow : Window
 {
     private readonly MainViewModel _vm = new();
     private readonly AppConfig _cfg;
@@ -33,7 +33,6 @@ public partial class MainWindow
             MessageBox.Show($"AT300 Excel not found:\n{_cfg.AT300ExcelPath}", "Missing file", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
-
         LoadExcel(_cfg.AT300ExcelPath);
     }
 
@@ -44,7 +43,6 @@ public partial class MainWindow
             MessageBox.Show($"AT200 Excel not found:\n{_cfg.AT200ExcelPath}", "Missing file", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
-
         LoadExcel(_cfg.AT200ExcelPath);
     }
 
@@ -88,11 +86,7 @@ public partial class MainWindow
         if (sfd.ShowDialog(this) != true)
             return;
 
-        var dlg = new ProgressDialog(totalPages)
-        {
-            Owner = this
-        };
-
+        var dlg = new ProgressDialog(totalPages) { Owner = this };
         dlg.Log("Starting export...");
         dlg.Show();
 

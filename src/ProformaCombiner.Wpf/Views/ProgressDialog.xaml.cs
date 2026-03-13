@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace ProformaCombiner.Wpf.Views;
 
-public partial class ProgressDialog
+public partial class ProgressDialog : Window
 {
     private readonly int _total;
     private int _current;
